@@ -2,6 +2,8 @@ package model.Entities;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Contrato {
 
@@ -12,20 +14,21 @@ public class Contrato {
 	private int numeroContrato;
 	private LocalDate dataContrato;
 	private Double valortotalContrato;
-	private int parcelas;
+
+	//lista por que um contrato tem várias parcelas
+	private List<Parcelas> parcelas = new ArrayList<>();
 
 	//Construtores
 	public Contrato() {
 
 	}
 
-	public Contrato(int numeroContrato, LocalDate dataContrato, Double valortotalContrato, int parcelas) {
+	public Contrato(int numeroContrato, LocalDate dataContrato, Double valortotalContrato) {
 		this.numeroContrato = numeroContrato;
 		this.dataContrato = dataContrato;
 		this.valortotalContrato = valortotalContrato;
-		this.parcelas = parcelas;
 	}
-
+	
 	//Getters e setters
 	public int getNumeroContrato() {
 		return numeroContrato;
@@ -51,22 +54,8 @@ public class Contrato {
 		this.valortotalContrato = valortotalContrato;
 	}
 
-	
+	public List<Parcelas> getParcelas() {
+		return parcelas;
+	}
 
-	public void dadosParcela() {
-        double parcelaBase = valortotalContrato / parcelas;
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        for (int i = 1; i <= parcelas; i++) {
-            LocalDate dataParcela = dataContrato.plusMonths(i);
-
-            // juros simples mensal
-            double valorComJurosMensal = parcelaBase + (parcelaBase * 0.01 * i);
-
-            // juros de pagamento (2%)
-            double valorFinal = valorComJurosMensal + (valorComJurosMensal * 0.02);
-
-            System.out.println(fmt.format(dataParcela) + " - R$" + String.format("%.2f", valorFinal));
-       }
-    }
 }
