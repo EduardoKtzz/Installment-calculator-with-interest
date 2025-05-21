@@ -41,8 +41,6 @@ public class Aplicattion {
 		ContractService service = new ContractService(new ServicoPaypal());
 		service.processamentoContrato(contrato, parcelas);
 
-		for(int i = 0; i<parcelas; i++)
-
 		System.out.println();
 		System.out.println("PARCELAS:");
 		for (Parcelas parcela : contrato.getParcelas()){
